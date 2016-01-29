@@ -111,7 +111,7 @@ func (a *autoQuery) OnAlertEnd() error {
 	return nil
 }
 
-// getAutoQueryList get the list of autoqueries from YAML (not manual queries)
+// getAutoQueryList gets the list of autoqueries from YAML (not manual queries)
 func getAutoQueryList(list map[string]config.Query) (ret []string) {
 	ret = []string{}
 

@@ -17,25 +17,25 @@ func Test_getRangeFilter(t *testing.T) {
 	real := elastic.NewRangeFilter("errorcode").Gte(500)
 	result, err = getRangeFilter(test)
 	assert.Equal(t, err, nil, "Should be nil")
-	assert.Equal(t, real, result, "Should be equal")
+	assert.Equal(t, real, result)
 
 	test = []interface{}{"timestamp", "lt", "now-1h"}
 	real = elastic.NewRangeFilter("timestamp").Lt("now-1h")
 	result, err = getRangeFilter(test)
 	assert.Equal(t, err, nil, "Should be nil")
-	assert.Equal(t, real, result, "Should be equal")
+	assert.Equal(t, real, result)
 
 	test = []interface{}{"code", "lt", "800", "gte", "500"}
 	real = elastic.NewRangeFilter("code").Lt(800).Gte(500)
 	result, err = getRangeFilter(test)
 	assert.Equal(t, err, nil, "Should be nil")
-	assert.Equal(t, real, result, "Should be equal")
+	assert.Equal(t, real, result)
 
 	test = []interface{}{"timestamp", "lt", "now-1h", "gte", "2d"}
 	real = elastic.NewRangeFilter("timestamp").Lt("now-1h").Gte("2d")
 	result, err = getRangeFilter(test)
 	assert.Equal(t, err, nil, "Should be nil")
-	assert.Equal(t, real, result, "Should be equal")
+	assert.Equal(t, real, result)
 
 	test = []interface{}{"code", "lt", "800", "pouet", "500"}
 	result, err = getRangeFilter(test)
@@ -74,7 +74,7 @@ func Test_getFilters(t *testing.T) {
 
 	testfilters, err := getFilters(filters)
 	assert.Equal(t, err, nil, "Should be nil")
-	assert.Equal(t, realfilters, testfilters, "Should be equal")
+	assert.Equal(t, realfilters, testfilters)
 
 	realfilters = []elastic.Filter{
 		elastic.NewTermFilter("test", "yes"),
@@ -97,7 +97,7 @@ func Test_getFilters(t *testing.T) {
 
 	testfilters, err = getFilters(filters)
 	assert.Equal(t, err, nil, "Should be nil")
-	assert.Equal(t, realfilters, testfilters, "Should be equal")
+	assert.Equal(t, realfilters, testfilters)
 
 	realfilters = []elastic.Filter{
 		elastic.NewTermFilter("value", 146),
@@ -114,7 +114,7 @@ func Test_getFilters(t *testing.T) {
 	}
 	testfilters, err = getFilters(filters)
 	assert.Equal(t, err, nil, "Should be nil")
-	assert.Equal(t, realfilters, testfilters, "Should be equal")
+	assert.Equal(t, realfilters, testfilters)
 
 	//non valid fields
 	filters = []interface{}{
@@ -318,12 +318,12 @@ func TestStringtoNb(t *testing.T) {
 	r4 := stringToNb(t4)
 	r5 := stringToNb(t5)
 	r6 := stringToNb(t6)
-	assert.Equal(t, 40.7, r1, "Should be equal")
-	assert.Equal(t, 3.3, r2, "Should be equal")
-	assert.Equal(t, 100, r3, "Should be equal")
-	assert.Equal(t, "nothing to do here", r4, "Should be equal")
-	assert.Equal(t, "now-30m", r5, "Should be equal")
-	assert.Equal(t, "100mille", r6, "Should be equal")
+	assert.Equal(t, 40.7, r1)
+	assert.Equal(t, 3.3, r2)
+	assert.Equal(t, 100, r3)
+	assert.Equal(t, "nothing to do here", r4)
+	assert.Equal(t, "now-30m", r5)
+	assert.Equal(t, "100mille", r6)
 
 	query1 := elastic.NewBoolFilter().Should(
 		elastic.NewTermFilter("User", "Thomas"),
@@ -346,5 +346,5 @@ func TestStringtoNb(t *testing.T) {
 		elastic.NewRangeFilter("Code").Gt(42.42),
 	)
 	assert.NotEqual(t, queryWrong, query2, "Should not be equal")
-	assert.Equal(t, query1, query2, "Should be equal")
+	assert.Equal(t, query1, query2)
 }

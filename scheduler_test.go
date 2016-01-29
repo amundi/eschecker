@@ -19,7 +19,7 @@ func Test_Scheduler(t *testing.T) {
 	sched.initScheduler(info)
 	assert.Equal(t, true, sched.isAlertOnlyOnce, "Should be true")
 	assert.Equal(t, true, sched.isAlertEndMsg, "Should be true")
-	assert.Equal(t, "8m20s", sched.waitSchedule.String(), "Should be equal")
+	assert.Equal(t, "8m20s", sched.waitSchedule.String())
 
 	info = &config.Query{
 		Schedule:       "30m",
@@ -27,43 +27,43 @@ func Test_Scheduler(t *testing.T) {
 		Alert_endmsg:   false,
 	}
 	sched.initScheduler(info)
-	assert.Equal(t, false, sched.isAlertOnlyOnce, "Should be equal")
-	assert.Equal(t, false, sched.isAlertEndMsg, "Should be false")
-	assert.Equal(t, "30m0s", sched.waitSchedule.String(), "Should be equal")
+	assert.Equal(t, false, sched.isAlertOnlyOnce)
+	assert.Equal(t, false, sched.isAlertEndMsg)
+	assert.Equal(t, "30m0s", sched.waitSchedule.String())
 
 	info = &config.Query{
 		Alert_onlyonce: false,
 	}
 	sched.initScheduler(info)
-	assert.Equal(t, true, sched.isAlertOnlyOnce, "Should be equal")
-	assert.Equal(t, false, sched.isAlertEndMsg, "Should be false")
-	assert.Equal(t, "10m0s", sched.waitSchedule.String(), "Should be equal")
-	assert.Equal(t, "10m0s", sched.alertSchedule.String(), "Should be equal")
+	assert.Equal(t, true, sched.isAlertOnlyOnce)
+	assert.Equal(t, false, sched.isAlertEndMsg)
+	assert.Equal(t, "10m0s", sched.waitSchedule.String())
+	assert.Equal(t, "10m0s", sched.alertSchedule.String())
 
 	info = &config.Query{}
 	sched.initScheduler(info)
-	assert.Equal(t, true, sched.isAlertOnlyOnce, "Should be equal")
-	assert.Equal(t, false, sched.isAlertEndMsg, "Should be false")
-	assert.Equal(t, "10m0s", sched.waitSchedule.String(), "Should be equal")
-	assert.Equal(t, "10m0s", sched.alertSchedule.String(), "Should be equal")
+	assert.Equal(t, true, sched.isAlertOnlyOnce)
+	assert.Equal(t, false, sched.isAlertEndMsg)
+	assert.Equal(t, "10m0s", sched.waitSchedule.String())
+	assert.Equal(t, "10m0s", sched.alertSchedule.String())
 
 	info = &config.Query{
 		Schedule:       "pouet",
 		Alert_onlyonce: false,
 	}
 	sched.initScheduler(info)
-	assert.Equal(t, true, sched.isAlertOnlyOnce, "Should be equal")
-	assert.Equal(t, false, sched.isAlertEndMsg, "Should be false")
-	assert.Equal(t, "10m0s", sched.waitSchedule.String(), "Should be equal")
-	assert.Equal(t, "10m0s", sched.alertSchedule.String(), "Should be equal")
+	assert.Equal(t, true, sched.isAlertOnlyOnce)
+	assert.Equal(t, false, sched.isAlertEndMsg)
+	assert.Equal(t, "10m0s", sched.waitSchedule.String())
+	assert.Equal(t, "10m0s", sched.alertSchedule.String())
 
 	info = &config.Query{
 		Schedule:       "40z",
 		Alert_onlyonce: false,
 	}
-	assert.Equal(t, true, sched.isAlertOnlyOnce, "Should be equal")
-	assert.Equal(t, false, sched.isAlertEndMsg, "Should be false")
-	assert.Equal(t, "10m0s", sched.waitSchedule.String(), "Should be equal")
-	assert.Equal(t, "10m0s", sched.alertSchedule.String(), "Should be equal")
+	assert.Equal(t, true, sched.isAlertOnlyOnce)
+	assert.Equal(t, false, sched.isAlertEndMsg)
+	assert.Equal(t, "10m0s", sched.waitSchedule.String())
+	assert.Equal(t, "10m0s", sched.alertSchedule.String())
 	sched.initScheduler(info)
 }

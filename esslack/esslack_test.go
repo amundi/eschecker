@@ -16,7 +16,7 @@ func Test_NewSlackMsg(t *testing.T) {
 
 func Test_getRequest(t *testing.T) {
 	eslog.Init()
-	token := "hellongig5648941x-x-xx"
+	token := "hellongi123"
 	g_slack.token = token
 	expectedRequest := "https://slack.com/api/chat.postMessage?username=test&token=" +
 		token + "&channel=%23testchannel&pretty=1&text=Salut+les+copains+c%27est+moi"

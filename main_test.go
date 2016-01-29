@@ -94,10 +94,10 @@ func TestDummyYaml1(t *testing.T) {
 	e.initIntegrations()
 	c := config.G_Config.Config
 	nb := e.parseQueries()
-	assert.Equal(t, 2, nb, "Should be equal")
+	assert.Equal(t, 2, nb)
 
 	//cluster and server info
-	assert.Equal(t, "http://www.mycluster.com:9200/", c.Cluster_addr, "Should be equal")
+	assert.Equal(t, "http://www.mycluster.com:9200/", c.Cluster_addr)
 	assert.Equal(t, true, c.Server_mode)
 	assert.Equal(t, "4242", c.Server_port)
 	assert.Equal(t, "/woohoo", c.Server_path)
@@ -119,78 +119,78 @@ func TestDummyYaml1(t *testing.T) {
 
 	//test1
 	test1, ok := g_queryList["test1"]
-	assert.Equal(t, true, ok, "Should be equal")
+	assert.Equal(t, true, ok)
 	_, ok = test1.(queries.Query)
 	assert.Equal(t, true, ok, "test1 should implement queries.Query")
 	errconfig := test1.SetQueryConfig(config.G_Config.ManualConfig.List)
 	assert.Equal(t, false, errconfig, "Should be false")
 	autoTest1, ok := test1.(*autoQuery)
 	assert.Equal(t, true, ok, "Test1 should be an Autoquery")
-	assert.Equal(t, 40, autoTest1.limit, "Should be equal")
+	assert.Equal(t, 40, autoTest1.limit)
 	realQuery := elastic.NewBoolFilter().
 		MustNot(elastic.NewTermFilter("status", "ok")).
 		MustNot(elastic.NewRangeFilter("code").Lt(500))
 	myQuery, err := test1.BuildQuery()
 	assert.Nil(t, err)
-	assert.Equal(t, realQuery, myQuery, "Should be equal")
-	assert.Equal(t, 40, autoTest1.limit, "Should be equal")
-	assert.Equal(t, []string{"jean-mich@example.com", "gerard@example.com"}, autoTest1.mail.EndAlertMail.GetRecipients(), "Should be equal")
+	assert.Equal(t, realQuery, myQuery)
+	assert.Equal(t, 40, autoTest1.limit)
+	assert.Equal(t, []string{"jean-mich@example.com", "gerard@example.com"}, autoTest1.mail.EndAlertMail.GetRecipients())
 
 	//slack
 	msg := "https://slack.com/api/chat.postMessage?username=Chicharito&token=" + "kikooletoken42" + "&channel=%23general&pretty=1&text=Y+a+un+probleme+mec"
-	assert.Equal(t, msg, autoTest1.slack.msg.GetSlackRequest(), "Should be equal")
+	assert.Equal(t, msg, autoTest1.slack.msg.GetSlackRequest())
 	msgEnd := "https://slack.com/api/chat.postMessage?username=Chicharito&token=" + "kikooletoken42" + "&channel=%23general&pretty=1&text=End+of+alert+for+test1"
-	assert.Equal(t, msgEnd, autoTest1.slack.endMsg.GetSlackRequest(), "Should be equal")
+	assert.Equal(t, msgEnd, autoTest1.slack.endMsg.GetSlackRequest())
 	assert.Equal(t, "Alert Elastic: Test titre !!!", autoTest1.mail.AlertMail.GetSubject())
 	assert.Equal(t, "Y a un probleme mec", autoTest1.mail.body)
 
 	s := new(scheduler)
 	schedInfo, ok := e.queries[strings.ToLower(autoTest1.name)]
-	assert.Equal(t, true, ok, "Should be ok")
+	assert.Equal(t, true, ok)
 	s.initScheduler(&schedInfo)
-	assert.Equal(t, true, s.isAlertOnlyOnce, "Should be equal")
-	assert.Equal(t, "33m0s", s.waitSchedule.String(), "Should be equal")
+	assert.Equal(t, true, s.isAlertOnlyOnce)
+	assert.Equal(t, "33m0s", s.waitSchedule.String())
 
 	sd := new(sender)
 	notGood := sd.initSender(&schedInfo)
 	assert.Nil(t, notGood)
-	assert.Equal(t, "test*", sd.index, "Should be equal")
-	assert.Equal(t, 3, sd.nbDocs, "Should be equal")
-	assert.Equal(t, true, sd.sortOrder, "Should be equal")
-	assert.Equal(t, "code", sd.sortBy, "Should be equal")
+	assert.Equal(t, "test*", sd.index)
+	assert.Equal(t, 3, sd.nbDocs)
+	assert.Equal(t, true, sd.sortOrder)
+	assert.Equal(t, "code", sd.sortBy)
 
 	//test2
 	test2, ok := g_queryList["test2"]
-	assert.Equal(t, true, ok, "Should be equal")
+	assert.Equal(t, true, ok)
 	_, ok = test2.(queries.Query)
 	assert.Equal(t, true, ok, "test2 should implement queries.Query")
 	errconfig = test2.SetQueryConfig(config.G_Config.ManualConfig.List)
-	assert.Equal(t, false, errconfig, "Should be false")
+	assert.Equal(t, false, errconfig)
 	autoTest2, ok := test2.(*autoQuery)
 	assert.Equal(t, true, ok, "Test2 should be an Autoquery")
-	assert.Equal(t, 0, autoTest2.limit, "Should be equal")
+	assert.Equal(t, 0, autoTest2.limit)
 	realQuery = elastic.NewBoolFilter().
 		Must(elastic.NewTermFilter("Severity", 5)).
 		Should(elastic.NewRangeFilter("timestamp").Lte("now-1h"))
 	myQuery, err = test2.BuildQuery()
 	assert.Nil(t, err)
-	assert.Equal(t, realQuery, myQuery, "Should be equal")
+	assert.Equal(t, realQuery, myQuery)
 	assert.Equal(t, []string{"moi@hotmail.com"}, autoTest2.mail.EndAlertMail.GetRecipients())
 	assert.Equal(t, "Alert Elastic: ", autoTest2.mail.AlertMail.GetSubject())
 	assert.Equal(t, "", autoTest2.mail.body)
 
 	s = new(scheduler)
 	schedInfo, ok = e.queries[strings.ToLower(autoTest2.name)]
-	assert.Equal(t, true, ok, "Should be ok")
+	assert.Equal(t, true, ok)
 	s.initScheduler(&schedInfo)
-	assert.Equal(t, false, s.isAlertOnlyOnce, "Should be equal")
-	assert.Equal(t, "30h0m0s", s.waitSchedule.String(), "Should be equal")
+	assert.Equal(t, false, s.isAlertOnlyOnce)
+	assert.Equal(t, "30h0m0s", s.waitSchedule.String())
 
 	sd = new(sender)
 	notGood2 := sd.initSender(&schedInfo)
 	assert.Nil(t, notGood2)
-	assert.Equal(t, "test2*", sd.index, "Should be equal")
-	assert.Equal(t, 180, sd.nbDocs, "Should be equal")
-	assert.Equal(t, false, sd.sortOrder, "Should be equal")
-	assert.Equal(t, "timestamp", sd.sortBy, "Should be equal")
+	assert.Equal(t, "test2*", sd.index)
+	assert.Equal(t, 180, sd.nbDocs)
+	assert.Equal(t, false, sd.sortOrder)
+	assert.Equal(t, "timestamp", sd.sortBy)
 }

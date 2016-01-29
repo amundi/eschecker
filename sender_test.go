@@ -25,12 +25,12 @@ func Test_SenderInit(t *testing.T) {
 
 	err := s.initSender(info)
 	assert.Nil(t, err)
-	assert.Equal(t, s.index, "testindex*", "Should be equal")
-	assert.Equal(t, s.nbDocs, 10, "Should be equal")
-	assert.Equal(t, s.sortOrder, true, "Should be equal")
-	assert.Equal(t, s.sortBy, "Timestamp", "Should be equal")
+	assert.Equal(t, s.index, "testindex*")
+	assert.Equal(t, s.nbDocs, 10)
+	assert.Equal(t, s.sortOrder, true)
+	assert.Equal(t, s.sortBy, "Timestamp")
 	testtimeout, _ := time.ParseDuration("15s")
-	assert.Equal(t, s.timeOut, testtimeout, "Should be equal")
+	assert.Equal(t, s.timeOut, testtimeout)
 
 	info = &config.Query{
 		Query: config.QueryInfo{
@@ -44,12 +44,12 @@ func Test_SenderInit(t *testing.T) {
 
 	err = s.initSender(info)
 	assert.Nil(t, err)
-	assert.Equal(t, s.index, "aaaargh", "Should be equal")
-	assert.Equal(t, s.nbDocs, 53, "Should be equal")
-	assert.Equal(t, s.sortOrder, false, "Should be equal")
-	assert.Equal(t, s.sortBy, "Severity", "Should be equal")
+	assert.Equal(t, s.index, "aaaargh")
+	assert.Equal(t, s.nbDocs, 53)
+	assert.Equal(t, s.sortOrder, false)
+	assert.Equal(t, s.sortBy, "Severity")
 	testtimeout, _ = time.ParseDuration("30s")
-	assert.Equal(t, s.timeOut, testtimeout, "Should be equal")
+	assert.Equal(t, s.timeOut, testtimeout)
 
 	info = &config.Query{
 		Query: config.QueryInfo{},
@@ -72,12 +72,12 @@ func Test_SenderInit(t *testing.T) {
 	}
 	err = s.initSender(info)
 	assert.Nil(t, err)
-	assert.Equal(t, s.index, "aaaargh", "Should be equal")
-	assert.Equal(t, s.nbDocs, 53, "Should be equal")
-	assert.Equal(t, s.sortOrder, false, "Should be equal")
-	assert.Equal(t, s.sortBy, "Severity", "Should be equal")
+	assert.Equal(t, s.index, "aaaargh")
+	assert.Equal(t, s.nbDocs, 53)
+	assert.Equal(t, s.sortOrder, false)
+	assert.Equal(t, s.sortBy, "Severity")
 	testtimeout, _ = time.ParseDuration("23s")
-	assert.Equal(t, s.timeOut, testtimeout, "Should be equal")
+	assert.Equal(t, s.timeOut, testtimeout)
 
 	info = &config.Query{
 		TimeOut: "23znfi9bgf",

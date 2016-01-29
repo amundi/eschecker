@@ -75,8 +75,8 @@ func TestAutoQuery_BuildQuery(t *testing.T) {
 	)
 
 	myQuery, err := test.BuildQuery()
-	assert.Equal(t, nil, err, "Should be equal")
-	assert.Equal(t, realQuery, myQuery, "Should be equal")
+	assert.Equal(t, nil, err)
+	assert.Equal(t, realQuery, myQuery)
 
 	test.queryInfo = &config.QueryInfo{
 		Type: "boolfilter",

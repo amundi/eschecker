@@ -34,6 +34,6 @@ func Test_DisplayPage(t *testing.T) {
 	res.Body.Close()
 	assert.Nil(t, err)
 	expected := formatQueriesForLayout()
-	assert.Equal(t, expected, string(page), "Deberian ser equal")
+	assert.Equal(t, expected, string(page))
 	worker.StopAllWorkers(32)
 }

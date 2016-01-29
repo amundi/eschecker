@@ -28,8 +28,8 @@ For example :
 
 ```
 examplequery:                   #name of query
-  schedule: 200s                #launch the query eveyr X
-  alert_onlyonce: true          #do the action only once as long as the auery is in alert status
+  schedule: 200s                #launch the query every X
+  alert_onlyonce: true          #do the action only once as long as the query is in alert status
   timeout: 30s                  #timeout for every query
   alert_endmsg: true            #send a message when alert ends
   query:                        #query details
@@ -42,7 +42,7 @@ examplequery:                   #name of query
     clauses:                    #Query clauses : must, must_not and should
       must:
         - term: ["status", "Error"]                 #for example, the document must have "Error" in its status field
-        - range: ["status", "gte", "300"]           #another exemple, the document must have a value "status" greater or equal to 300
+        - range: ["status", "gte", "300"]           #another example, the document must have a value "status" greater or equal to 300
       must_not:
         - range: ["timestamp", "gte", "now-1h"]     #the document must not be older than an hour
   actions:                                          
@@ -99,7 +99,7 @@ accepted by ElasticSearch ! ES is very case sensitive. If you send a query with
 a "timestamp" field and the right field is "Timestamp", error is guaranteed.
 Beware also of the "sortby" field for the same reasons.
 
-dont't forget the brackets around the arrays in the yaml, and if you want to
+don't forget the brackets around the arrays in the yaml, and if you want to
 specify a slack channel, put it into quotes (for example, "#mychannel"), or else
 it will be parsed as a comment.
 
@@ -114,7 +114,7 @@ file, you shall implement all the methods of the Query interface, as defined
 in queries.go. The example file examplequery.go could help you.
 
 A handmade query allows to be more precise with the query of course, but also with
-the alert condition, the action(s) to realise or what to do when the alert ends.
+the alert condition, the action(s) to realize or what to do when the alert ends.
 
 Some basic information is still needed in the yaml :
 
@@ -174,7 +174,7 @@ mymanualquery:
     type: manual
 ```
 
-And finaly, in the file of your query :
+And finally, in the file of your query :
 
 ```
 func (m *MyManualQuery) SetQueryConfig(c config.ManualQueryList) bool {
